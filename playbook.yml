@@ -1,0 +1,17 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Check if rclone is installed
+      command: dpkg-query -W rclone
+      register: rclone_check
+      failed_when: rclone_check.rc > 1
+      changed_when: rclone_check.rc == 1
+
+    - name: Install rclone
+      command: pkg install rclone
+      when: rclone_check.rc == 1
+
+    - name: Copy files
+      copy:
+        src: ./
+        dest: ./

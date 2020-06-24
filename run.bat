@@ -1,0 +1,1 @@
+ansp -i hosts.yml playbook.yml
